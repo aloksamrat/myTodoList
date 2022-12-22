@@ -4,17 +4,30 @@
   </head>
   <body>
     <button>Press me</button>
-    <div>Get Groceries</div>
-    <div>Wash car</div>
-    <div>Make dinner</div>
+    
     <script>
-      let todo1 = 'Get grocerie';
-      let todo2 = 'Wash car';
-      let todo3 = 'Make dinner';
+     
 
-      let element = document.createElement('div');
-      element.innerText = todo1;
+      let todos = ['Get groceries', 'Wash car', 'Make dinner'];
+      todos.push('another todo');
+
+      todos.forEach(function (todoTitle){
+        let element = document.createElement('div');
+      element.innerText = todoTitle;
       document.body.appendChild(element);
+      });
+
+      //document.title = "Javascript title";
+
+     
+
+      
+
+     
+
+      //element = document.createElement('button');
+      //element.innerText = 'Click Me';
+      //document.body.appendChild(element);
     </script>
 
   </body>
