@@ -9,8 +9,7 @@
     <div id="todo-list"> </div>
     
     <script>
-     
-
+      //Model section of MVC
       let todos = [{
         title: 'Get groceries',
         dueDate:'2021-10-04',
@@ -22,33 +21,32 @@
           title: 'Make dinner',
           dueDate:'2022-03-03',
           id: 'id3'}];
-    
 
-      render();
+        //Create a todo
+        function createTodo (title,dueDate) {
+          const id = ''+ new Date().getTime();
 
-      function addTodo () {
-        const textbox = document.getElementById('todo-title');
-        const title = textbox.value;
+          if(title === '') {
+            alert("New task is empty");
+          }
+          else if (dueDate === '') {
+            alert("Please enter due date for new task");
+          }
+          else {
+            todos.push({
+            title: title,
+            dueDate: dueDate, 
+            id: id
+          });
+          
 
-        const datePicker = document.getElementById('date-picker');
-        const dueDate = datePicker.value;
+          }
 
-        const id = ''+ new Date().getTime();
 
-        todos.push({
-          title: title,
-          dueDate: dueDate, 
-          id: id
-        });
-
-        render();
-      }
-
-      function deleteTodo (event) {
-        const deleteButton = event.target;
-        const idToDelete = deleteButton.id;
-
-        todos = todos.filter(function (todo){
+        }
+        //Deletes a todo
+        function removeTodo (idToDelete) {
+          todos = todos.filter(function (todo){
            //if the id of this todo matches the idToDelete, return false
            //for everything else, return true.
            if(todo.id === idToDelete) {
@@ -57,9 +55,36 @@
             return true;
            }
         });
+        }
+    
+
+      render();
+
+      //Controller of MVC
+      function addTodo () {
+        const textbox = document.getElementById('todo-title');
+        const title = textbox.value;
+
+        const datePicker = document.getElementById('date-picker');
+        const dueDate = datePicker.value;
+
+        createTodo(title,dueDate);
+        textbox.value = '';
+        datePicker.value = '';
+
         render();
       }
 
+      //Controller of MVC
+      function deleteTodo (event) {
+        const deleteButton = event.target;
+        const idToDelete = deleteButton.id;
+
+        removeTodo(idToDelete);
+
+        render();
+      }
+      //View section in MVC
       function render() {
         //reset our list each time
         document.getElementById('todo-list').innerHTML = '';
