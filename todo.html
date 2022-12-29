@@ -10,7 +10,18 @@
     
     <script>
       //Model section of MVC
-      let todos = [{
+      //If localstorage has a todos array, then use it
+      //Otherwise use the degault array.
+      let todos;
+
+      //Retrieve localStorage
+      const savedTodos = JSON.parse(localStorage.getItem('todos'));
+      //Check if it's an array
+      if (Array.isArray(savedTodos)) {
+        todos = savedTodos;
+
+      } else {
+        todos = [{
         title: 'Get groceries',
         dueDate:'2021-10-04',
         id: 'id1'}, {
@@ -21,6 +32,9 @@
           title: 'Make dinner',
           dueDate:'2022-03-03',
           id: 'id3'}];
+      }
+
+          render();
 
         //Create a todo
         function createTodo (title,dueDate) {
@@ -38,12 +52,11 @@
             dueDate: dueDate, 
             id: id
           });
-          
 
+          saveTodos();
           }
-
-
         }
+
         //Deletes a todo
         function removeTodo (idToDelete) {
           todos = todos.filter(function (todo){
@@ -55,11 +68,15 @@
             return true;
            }
         });
+
+        saveTodos();
+        }
+
+        //saving data to local storage
+        function saveTodos() {
+          localStorage.setItem('todos', JSON.stringify(todos));
         }
     
-
-      render();
-
       //Controller of MVC
       function addTodo () {
         const textbox = document.getElementById('todo-title');
