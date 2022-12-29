@@ -11,14 +11,17 @@
     <script>
      
 
-      const todos = [{
+      let todos = [{
         title: 'Get groceries',
-        dueDate:'2021-10-04'}, {
+        dueDate:'2021-10-04',
+        id: 'id1'}, {
         title: 'Wash car',
-        dueDate:'2022-05-12'
+        dueDate:'2022-05-12',
+        id: 'id2'
         }, {
           title: 'Make dinner',
-          dueDate:'2022-03-03'}];
+          dueDate:'2022-03-03',
+          id: 'id3'}];
     
 
       render();
@@ -29,12 +32,35 @@
 
         const datePicker = document.getElementById('date-picker');
         const dueDate = datePicker.value;
+
+        const id = new Date().getTime();
+
         todos.push({
           title: title,
-          dueDate: dueDate 
+          dueDate: dueDate, 
+          id: id
         });
 
         render();
+      }
+
+      function deleteTodo (event) {
+        const deleteButton = event.target;
+        const idToDelete = deleteButton.id;
+
+        todos = todos.filter(function (todo){
+           //if the id of this todo matches the idToDelete, return false
+           //for everything else, return true.
+           if(todo.id === idToDelete) {
+            return false;
+           } else {
+            return true;
+           }
+
+           render();
+
+        });
+
       }
 
       function render() {
@@ -45,6 +71,15 @@
         todos.forEach(function (todo){
         const element = document.createElement('div');
         element.innerText = todo.title + ' ' + todo.dueDate;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = 'Delete';
+        deleteButton.style = 'margin-left: 12px;';
+        deleteButton.onclick = deleteTodo;
+        deleteButton.id = todo.id;
+        element.appendChild(deleteButton);
+
+
         const todoList = document.getElementById('todo-list');
         todoList.appendChild(element);
         });
