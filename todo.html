@@ -33,7 +33,7 @@
         const datePicker = document.getElementById('date-picker');
         const dueDate = datePicker.value;
 
-        const id = new Date().getTime();
+        const id = ''+ new Date().getTime();
 
         todos.push({
           title: title,
@@ -56,11 +56,8 @@
            } else {
             return true;
            }
-
-           render();
-
         });
-
+        render();
       }
 
       function render() {
